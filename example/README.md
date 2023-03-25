@@ -1,16 +1,9 @@
-# example
 
-A new Flutter project.
+flutter_slideshow example
 
-## Getting Started
+https://github.com/nramirez/slideshow
 
-This project is a starting point for a Flutter application.
+## Demo
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Example App](https://user-images.githubusercontent.com/1899538/227728628-0ea98843-173f-4262-90e5-d94f2a99f4bb.png)
+![Slideshow example](https://user-images.githubusercontent.com/1899538/227728646-c53e2690-0b08-4764-9a48-511bb01f74dd.png)

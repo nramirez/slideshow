@@ -6,6 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slideshow/img_card.dart';
 import 'package:flutter_slideshow/ticker.dart';
 
+/// SlideShow for displaying a list of images
+/// relies on [ImgCard] for displaying the images
+/// [urls] is the list of urls to display
+/// [autoPlayTimeInSeconds] is the time between switching images
+/// [maxAutoPlayTimeInSeconds] is the maximum time between switching images
+/// [hideControlsAfterSeconds] is the time after which the controls are hidden
+/// [isFavorite] function which checks whether a url is a favorite
+/// [toggleFavorite] function which toggles the favorite status of a url
 class SlideShow extends StatefulWidget {
   const SlideShow({
     required this.urls,
@@ -17,11 +25,22 @@ class SlideShow extends StatefulWidget {
     super.key,
   });
 
+  /// The list of urls to display
   final List<String> urls;
+
+  /// The time between switching images
   final int autoPlayTimeInSeconds;
+
+  /// The maximum time between switching images
   final int maxAutoPlayTimeInSeconds;
+
+  /// The time after which the controls are hidden
   final int hideControlsAfterSeconds;
+
+  /// Function which checks whether a url is a favorite
   final bool Function(String url)? isFavorite;
+
+  /// Function which toggles the favorite status of a url
   final void Function(String url)? toggleFavorite;
 
   @override
@@ -29,29 +48,49 @@ class SlideShow extends StatefulWidget {
 }
 
 class _SlideShowState extends State<SlideShow> {
+  /// The controller for the pageview
   final controller = PageController();
+
+  /// Whether the controls are hidden
   bool hideControls = false;
-  DateTime lastInteractionTime = DateTime.now();
+
+  /// Keep track of the last interaction
+  DateTime mostRecentInteraction = DateTime.now();
+
+  /// The time between switching images
   late int autoPlayTimeInSeconds;
+
+  /// The maximum time between switching images
   late int maxAutoPlayTimeInSeconds;
+
+  /// The time after which the controls are hidden
   late int hideControlsAfterSeconds;
 
+  /// Ticker subscription used to avoid memory leaks
   StreamSubscription<int>? tickerSubscription;
 
   @override
   void initState() {
     super.initState();
+
+    /// Set the initial values from the widget params
     autoPlayTimeInSeconds = widget.autoPlayTimeInSeconds;
     maxAutoPlayTimeInSeconds = widget.maxAutoPlayTimeInSeconds;
     hideControlsAfterSeconds = widget.hideControlsAfterSeconds;
+
+    /// Listen to the pageview controller
     tickerSubscription = SlideShowTicker.tick().listen((event) {
+      /// Change page every [autoPlayTimeInSeconds] seconds
+      /// Skip the the very first event to avoid changing page on init
       if (event % autoPlayTimeInSeconds == 0 && event > 0) {
         controller.nextPage(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
         );
       }
-      if (DateTime.now().difference(lastInteractionTime).inSeconds >
+
+      /// Hide the controls after [hideControlsAfterSeconds] seconds
+      if (DateTime.now().difference(mostRecentInteraction).inSeconds >
           hideControlsAfterSeconds) {
         setState(() {
           hideControls = true;
@@ -62,13 +101,22 @@ class _SlideShowState extends State<SlideShow> {
 
   @override
   void dispose() {
+    /// Avoid memory leaks by disposing page controller and ticker subscription
     controller.dispose();
     tickerSubscription?.cancel();
     super.dispose();
   }
 
+  /// SlideShow controls
+  /// [go-left] button to go to the previous image
+  /// [go-right] button to go to the next image
+  /// [close] button to close the slideshow
+  /// [slider] to change the time between switching images
   List<Widget> controls() {
+    /// The controls are only visible when the user interacts with the screen
     final opacity = hideControls ? 0.0 : 1.0;
+
+    /// The controls fade in and out
     const duration = Duration(seconds: 1);
 
     return [
@@ -154,15 +202,18 @@ class _SlideShowState extends State<SlideShow> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          setState(() {
-            hideControls = false;
-            lastInteractionTime = DateTime.now();
-          });
-        },
-        child: Stack(
+    return GestureDetector(
+      onTap: () {
+        /// Update the last interaction time
+        mostRecentInteraction = DateTime.now();
+
+        /// Show the controls
+        setState(() {
+          hideControls = false;
+        });
+      },
+      child: Scaffold(
+        body: Stack(
           children: [
             PageView.builder(
               controller: controller,

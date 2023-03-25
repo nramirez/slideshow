@@ -7,6 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
+/// A card that displays an image
+/// Caches the image with [CachedNetworkImage]
+/// [imgUrl] is the url of the image
+/// [description] optional description of the image
+/// [isFavorite] function which checks whether a imgUrl is a favorite
+/// [toggleFavorite] function which toggles the favorite status of a imgUrl
 class ImgCard extends StatelessWidget {
   const ImgCard({
     required this.imgUrl,
@@ -15,11 +21,20 @@ class ImgCard extends StatelessWidget {
     this.toggleFavorite,
     super.key,
   });
+
+  /// The url of the image
   final String imgUrl;
+
+  /// The description of the image
   final String? description;
+
+  /// Function which checks whether a imgUrl is a favorite
   final void Function(String)? toggleFavorite;
+
+  /// Function which toggles the favorite status of a imgUrl
   final bool Function(String)? isFavorite;
 
+  /// Share image with share_plus
   Future<void> share(BuildContext context) async {
     final byteData = await NetworkAssetBundle(Uri.parse(imgUrl)).load(imgUrl);
     final bytes = byteData.buffer.asUint8List();
@@ -34,7 +49,11 @@ class ImgCard extends StatelessWidget {
     );
   }
 
+  // Use bg to change wallpaper on macOS
   Future<void> updateWallpaper() async {
+    /// BG only works on macOS at the moment
+    if (!Platform.isMacOS) return;
+
     await Bg().changeWallpaper(
       options: WallpaperOptions(url: imgUrl),
     );
