@@ -11,29 +11,19 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Simple Slideshow flutter
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Manage interval for the slideshow
+- As simple as using a list of images
+- Control how to fav an image
+- Change wallpaper for MacOS
 
-## Getting started
+## Demo
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+![Example App](https://user-images.githubusercontent.com/1899538/227728628-0ea98843-173f-4262-90e5-d94f2a99f4bb.png)
+![Slideshow example](https://user-images.githubusercontent.com/1899538/227728646-c53e2690-0b08-4764-9a48-511bb01f74dd.png)
 
-## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+TODO: Improve docs
