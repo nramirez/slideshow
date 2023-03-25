@@ -1,7 +1,10 @@
 name: flutter_slideshow
 description: Beautiful slideshow.
-version: 0.0.1
+maintainer: Naz (@nramirez)
 homepage: https://github.com/nramirez/slideshow
+repository: https://github.com/nramirez/slideshow
+issue_tracker: https://github.com/nramirez/slideshow/issues
+version: 1.0.0
 
 environment:
   sdk: '>=2.19.4 <3.0.0'
