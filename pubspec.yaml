@@ -1,7 +1,7 @@
-name: slideshow
-description: A new Flutter package project.
+name: flutter_slideshow
+description: Beautiful slideshow.
 version: 0.0.1
-# homepage: null
+homepage: https://github.com/nramirez/slideshow
 
 environment:
   sdk: '>=2.19.4 <3.0.0'

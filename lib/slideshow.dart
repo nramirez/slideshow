@@ -1,10 +1,10 @@
-library slideshow;
+library flutter_slideshow;
 
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:slideshow/img_card.dart';
-import 'package:slideshow/ticker.dart';
+import 'package:flutter_slideshow/img_card.dart';
+import 'package:flutter_slideshow/ticker.dart';
 
 class SlideShow extends StatefulWidget {
   const SlideShow({
