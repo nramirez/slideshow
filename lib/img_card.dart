@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:bg/bg.dart';
-import 'package:bg/options.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,16 +48,6 @@ class ImgCard extends StatelessWidget {
     );
   }
 
-  // Use bg to change wallpaper on macOS
-  Future<void> updateWallpaper() async {
-    /// BG only works on macOS at the moment
-    if (!Platform.isMacOS) return;
-
-    await Bg().changeWallpaper(
-      options: WallpaperOptions(url: imgUrl),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -81,7 +70,8 @@ class ImgCard extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.wallpaper),
                     onPressed: () async {
-                      await updateWallpaper();
+                      await Bg()
+                          .showWallpaperOptions(url: imgUrl, context: context);
                     },
                   ),
                 IconButton(

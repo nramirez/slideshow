@@ -1,3 +1,7 @@
+## 1.0.1
+* Bumped up BG dependency
+* Bottom sheet modal 
+
 ## 1.0.0
 
 - Updating docs
